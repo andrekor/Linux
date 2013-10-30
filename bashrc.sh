@@ -53,12 +53,16 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
+# Prompt color:
+# \[\e[0;35m\] = PURPLE
+# \t           = Time
+# \[\e[0;32m\] = GREEN
+# \h           = host
+# \[\e[0;33m\] = YELLOW
+# \W           = current working directory
+# \[\e[1;31m\] = GREY
+# \[\e[0m\]    = DEFAULT_COLOR:
+PS1="\[\e[0;35m\][\t] \[\e[0;32m\]\h \[\e[0;33m\]\W \[\e[1;30m\]-> \[\e[0m\]"
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -80,17 +84,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-
-# Prompt:
-# \[\e[0;35m\] = PURPLE
-# \t           = Time
-# \[\e[0;32m\] = GREEN
-# \h           = host
-# \[\e[0;33m\] = YELLOW
-# \W           = current working directory
-# \[\e[1;31m\] = GREY
-# \[\e[0m\]    = DEFAULT_COLOR:
-PS1="\[\e[0;35m\][\t] \[\e[0;32m\]\h \[\e[0;33m\]\W \[\e[1;30m\]-> \[\e[0m\]"
 
 # some more ls aliases
 alias ll='ls -alF'
